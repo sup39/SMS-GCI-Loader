@@ -42,15 +42,15 @@ int onReadOptionBlock(TCardManager *this, CARDFileInfo *fileInfo) {
   if ((rc = CARDRead(fileInfo, dst, size, 0))) {
     // should not fail if (dst, size) is properly set
   } else {
-    // everything is good
-    // TODO apply gecko code
-    *(char*)0x817effff = 1; // ready (temporary solution)
+    // everything is good => apply gecko code
+    // TODO entry
+    ((void(*)())0x817f0000)();
   }
 
   // close file
   CARDClose(fileInfo);
 
 orig:
-  // original function call 
+  // original function call
   return open_(this, fileInfo);
 }
