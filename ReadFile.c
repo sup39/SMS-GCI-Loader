@@ -44,7 +44,7 @@ int onReadOptionBlock(TCardManager *this, CARDFileInfo *fileInfo) {
   } else {
     // everything is good => apply gecko code
     // TODO entry
-    ((void(*)())0x817f0000)();
+    ((void(*)())0x817f4000)();
   }
 
   // close file
