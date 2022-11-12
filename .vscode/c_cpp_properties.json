@@ -1,0 +1,22 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "compilerPath": "${DEVKITPPC}/bin/powerpc-eabi-cpp",
+            "cppStandard": "c++11",
+            "includePath": [
+                "${workspaceFolder}/include/**",
+                "${DEVKITPPC}/include/**",
+                "${DEVKITPRO}/portlibs/wii/include/**",
+                "${DEVKITPRO}/portlibs/ppc/include/**",
+                "${DEVKITPRO}/libogc/include/**",
+                "${DEVKITPPC}/lib/gcc/powerpc-eabi/11.1.0/include/**"
+            ],
+            "browse": {
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": ""
+            }
+        }
+    ],
+    "version": 4
+}

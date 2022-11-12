@@ -1,0 +1,14 @@
+{
+    "name": "DevkitPPC",
+    "build": {
+        "dockerfile": "./Dockerfile",
+        "context": "."
+    },
+    "overrideCommand": false,
+    "remoteUser": "dev",
+    "extensions": [
+        "OGoodness.powerpc-syntax",
+        "ms-vscode.makefile-tools",
+        "ms-vscode.cpptools"
+    ]
+}
