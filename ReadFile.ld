@@ -1,4 +1,4 @@
-$$ = 0x817eff00;
+$$ = 0;
 
 /* TCardManager::cmdLoop() */
-$bl$onReadOptionBlock = 0x801069f4;
+$C2$onReadOptionBlock = 0x801069f4;
