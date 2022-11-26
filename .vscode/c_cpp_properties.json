@@ -3,7 +3,6 @@
         {
             "name": "Linux",
             "compilerPath": "${DEVKITPPC}/bin/powerpc-eabi-cpp",
-            "cppStandard": "c++11",
             "includePath": [
                 "${workspaceFolder}/include/**",
                 "${DEVKITPPC}/include/**",
@@ -15,7 +14,12 @@
             "browse": {
                 "limitSymbolsToIncludedHeaders": true,
                 "databaseFilename": ""
-            }
+            },
+            "cStandard": "c99",
+            "configurationProvider": "ms-vscode.makefile-tools",
+            "defines": [
+                "VERSION=2"
+            ]
         }
     ],
     "version": 4
