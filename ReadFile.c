@@ -1,3 +1,5 @@
+#include <stdint.h>
+
 typedef struct {
   char pad[20];
 } CARDFileInfo;
@@ -24,10 +26,16 @@ int CARDRead(CARDFileInfo *fileInfo, void *buf, unsigned long size, unsigned lon
 int CARDClose(CARDFileInfo *fileInfo);
 
 #define fileName "gct"
-#define dst ((void*)0x817F0000)
-#define size 0xE000 // 7 blocks
+#define dst ((void*)0x817FA800)
+#define size 0x4000 // 2 blocks
+#define magicAddr (dst+size)
+#define magic 0xabcd1234
 int onReadOptionBlock(TCardManager *this, CARDFileInfo *fileInfo) {
   int rc;
+
+  // if magic is correct -> already loaded -> do not load again
+  if (*(unsigned int*)(magicAddr) == magic) goto orig;
+
   // mount
   if ((rc = mount_(this, 1))) goto orig;
 
@@ -44,7 +52,11 @@ int onReadOptionBlock(TCardManager *this, CARDFileInfo *fileInfo) {
   } else {
     // everything is good => apply gecko code
     // TODO entry
-    ((void(*)())0x817f4000)();
+    // ((void(*)())0x817f4000)();
+    if (*(uint32_t*)(dst) == 0x00d0c0de && *(uint32_t*)(dst+4) == 0x00d0c0de) {
+      // is gct
+      *(uint32_t*)(magicAddr) = magic; // set magic to enable gecko code
+    }
   }
 
   // close file
