@@ -1,0 +1,6 @@
+#!/bin/bash
+
+make GAME_VERSION=GMSE01 OUT_DIR=out/gmse01
+make GAME_VERSION=GMSJ01 OUT_DIR=out/gmsj01
+make GAME_VERSION=GMSP01 OUT_DIR=out/gmsp01
+make GAME_VERSION=GMSJ0A OUT_DIR=out/gmsj0a
