@@ -8,6 +8,7 @@ OD := powerpc-eabi-objdump
 ODFLAGS := -EB -D -b binary -m powerpc:750 -M gekko --full-content
 
 LD := powerpc-eabi-ld
+LDFLAGS := --unresolved-symbols=ignore-in-object-files
 
 OBJCOPY := powerpc-eabi-objcopy
 PYTHON := python3
@@ -33,13 +34,13 @@ blockCount := 7
 all: $(OUT_DIR)/$(OUT_BIN) $(OUT_DIR)/$(OUT_ASM)
 
 $(OUT_DIR)/$(OUT_ASM): $(OUT_DIR)/$(OUT_BIN)
-	$(OD) $(ODFLAGS) $(OUT_DIR)/${OUT_BIN} > $(OUT_DIR)/$(OUT_ASM)
+	$(OD) $(ODFLAGS) $(OUT_DIR)/$(OUT_BIN) > $(OUT_DIR)/$(OUT_ASM)
 
 $(OUT_DIR)/$(OUT_BIN): $(OUT_DIR)/$(OUT_MAIN)
 	$(OBJCOPY) -O binary $< $@
 
 $(OUT_DIR)/$(OUT_MAIN): $(OBJ_FILES) $(LD_FILE) $(OUT_DIR)
-	$(LD) -o $@ -T $(LD_FILE) -Map $(OUT_DIR)/$(OUT_MAP) -r $(OBJ_FILES)
+	$(LD) $(LDFLAGS) -o $@ -T $(LD_FILE) -Map $(OUT_DIR)/$(OUT_MAP) $(OBJ_FILES)
 
 $(OBJ_FILES): $(SRC_FILES)
 	$(CC) $(CFLAGS) -I $(INC_DIR) -o $@ -c $(@:.o=.c)
