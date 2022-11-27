@@ -16,7 +16,7 @@ bool loadCard(TCardManager *cm, CARDFileInfo *fileInfo, char *fileName, u32 *dst
     return -1;
 
   // Read codes into destination address
-  if (CARDRead(fileInfo, dst, fileInfo->length, 0))
+  if (!CARDRead(fileInfo, dst, fileInfo->length, 0))
     return -1;
 
   // Done
