@@ -1,0 +1,30 @@
+name: Build
+
+on: push
+
+jobs:
+  build:
+    if: github.repository_owner == 'bitpatty'
+    name: Build
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        version:
+          - 1
+          - 2
+          - 3
+          - 4
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Build Docker Image
+        run: docker build --build-arg VERSION=${{ matrix.version }} -t build:base -f ./.github/Build.Dockerfile .
+      - name: Build Project
+        run: docker run --mount type=bind,source="$(pwd)",target=/build  build:base
+      - name: Upload Artifactes
+        uses: actions/upload-artifact@master
+        with:
+          name: build-artifact
+          path: out
+          retention-days: 7
