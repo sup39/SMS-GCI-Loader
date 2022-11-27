@@ -1,11 +1,11 @@
 FROM devkitpro/devkitppc:20210726
-ARG VERSION
+ARG GAME_VERSION
 
 ENV PATH="${PATH}:/opt/devkitpro/devkitPPC/bin"
-ENV VERSION=${VERSION}
+ENV GAME_VERSION=${GAME_VERSION}
 
 RUN apt-get update && apt-get install make
 
 WORKDIR /build
 
-ENTRYPOINT make VERSION=${VERSION}
+ENTRYPOINT make GAME_VERSION=${GAME_VERSION}
