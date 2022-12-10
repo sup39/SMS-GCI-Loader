@@ -1,5 +1,5 @@
 CC := powerpc-eabi-gcc
-CFLAGS := -Os -I. -Wa,-mregnames,-mgekko -Wall -fno-asynchronous-unwind-tables -fno-unwind-tables
+CFLAGS := -O3 -I. -Wa,-mregnames,-mgekko -Wall -fno-asynchronous-unwind-tables -fno-unwind-tables -fverbose-asm -gdwarf
 
 AS := powerpc-eabi-as
 ASFLAGS := -mregnames -mgekko
@@ -8,7 +8,7 @@ OD := powerpc-eabi-objdump
 ODFLAGS := -EB -D -b binary -m powerpc:750 -M gekko --full-content
 
 LD := powerpc-eabi-ld
-LDFLAGS := --unresolved-symbols=ignore-in-object-files
+LDFLAGS := --unresolved-symbols=ignore-in-object-files --enable-non-contiguous-regions -EB --nmagic
 
 OBJCOPY := powerpc-eabi-objcopy
 PYTHON := python3
@@ -23,7 +23,7 @@ OUT_MAP := main.map
 
 OUT_MAIN := main.out
 OUT_BIN := main.bin
-OUT_ASM := main.asm
+OUT_LST := main.lst
 
 GMSE01 := 1
 GMSJ01 := 2
@@ -38,10 +38,10 @@ OBJ_FILES := $(SRC_FILES:.c=.o)
 OBJS := main.o card.o
 blockCount := 7
 
-all: $(OUT_DIR)/$(OUT_BIN) $(OUT_DIR)/$(OUT_ASM)
+all: $(OUT_DIR)/$(OUT_BIN) $(OUT_DIR)/$(OUT_LST)
 
-$(OUT_DIR)/$(OUT_ASM): $(OUT_DIR)/$(OUT_BIN)
-	$(OD) $(ODFLAGS) $(OUT_DIR)/$(OUT_BIN) > $(OUT_DIR)/$(OUT_ASM)
+$(OUT_DIR)/$(OUT_LST): $(OUT_DIR)/$(OUT_BIN)
+	$(OD) $(ODFLAGS) $(OUT_DIR)/$(OUT_BIN) > $(OUT_DIR)/$(OUT_LST)
 
 $(OUT_DIR)/$(OUT_BIN): $(OUT_DIR)/$(OUT_MAIN)
 	$(OBJCOPY) -O binary $< $@
