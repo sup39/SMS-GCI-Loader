@@ -1,5 +1,5 @@
 SECTIONS {
-  . = 0x80000000;  /* TODO: Determine Address */
+  . = 0x817FF000;  /* TODO: Determine Best Address */
   .text : { *(.text) }
   .rodata : { *(.rodata) }
   .data : { *(.data) }
