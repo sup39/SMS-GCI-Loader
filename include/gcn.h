@@ -8,8 +8,12 @@
 #define CARD_SLOT_A 0
 #define CARD_SLOT_B 1
 
-#define MEM1_START 0x8000000
-#define MEM1_END 0x81800000
+#define MEM1_START 0x80000000
+#define MEM1_END   0x81800000
+// The area beyond ArenaHi is used by system
+// and should not be modified
+// TODO version?
+#define ArenaHi    0x817FEEA0
 
 typedef struct CARDFileInfo
 {

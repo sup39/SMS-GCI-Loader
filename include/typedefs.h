@@ -2,6 +2,8 @@
 #define __TYPEDEF_H__
 
 typedef int bool;
+#define true  1
+#define false 0
 
 typedef unsigned long long u64;
 typedef signed long long s64;

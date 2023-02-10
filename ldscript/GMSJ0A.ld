@@ -1,0 +1,5 @@
+mount_ = 0x80292634;
+open_ = 0x80291e38;
+CARDOpen = 0x80338c8c;
+CARDRead = 0x80339620;
+CARDClose = 0x80338e04;
