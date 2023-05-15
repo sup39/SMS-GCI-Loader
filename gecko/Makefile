@@ -25,8 +25,8 @@ all: $(OUT_TXT)
 
 %.o: %.s
 	$(AS) $(ASFLAGS) -o $@ -c $^
-%.ld.o: %.o
-	$(LD) $(LDFLAGS) -o $@ -T $(LD_FILES) $^
+%.ld.o: %.o $(LD_FILES)
+	$(LD) $(LDFLAGS) -o $@ -T $(LD_FILES) $<
 $(OUT_DIR)/%.bin: $(SRC_DIR)/%.ld.o | $(OUT_DIR)
 	$(OBJCOPY) $(OBJCOPYFLAGS) $< $@
 $(OUT_DIR)/%.txt: $(OUT_DIR)/%.bin | $(OUT_DIR)

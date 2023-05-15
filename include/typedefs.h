@@ -1,5 +1,6 @@
 #ifndef __TYPEDEF_H__
 #define __TYPEDEF_H__
+#include <stdint.h>
 
 typedef int bool;
 #define true  1

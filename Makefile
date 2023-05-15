@@ -50,7 +50,7 @@ LD_FILES := $(LD_DIR)/sms.ld $(LD_DIR)/$(GAME_VERSION).ld
 GECKO_FILE_LOADER := $(GECKO_DIR)/$(GECKO_OUT_DIR)/gecko-gosub.bin
 GECKO_FILES := $(GECKO_FILE_LOADER) $(GECKO_DIR)/$(GECKO_OUT_DIR)/gecko-return.bin
 
-OBJS := main.o card.o
+OBJS := main.o card.o drawText.o
 
 all: $(OUT_DIR)/$(OUT_BIN) $(OUT_DIR)/$(OUT_LST) $(OUT_DIR)/$(OUT_ASM) $(OUT_DIR)/$(OUT_LOADER_TXT)
 
@@ -70,8 +70,8 @@ $(OBJ_FILES): $(SRC_FILES) check-set-GAME_VERSION #check-set-TARGET_VERSION
 	$(CC) $(CFLAGS) -D VERSION=$(TARGET_VERSION) -I $(INC_DIR) -o $@ -c $(@:.o=.c)
 
 $(OUT_DIR)/$(OUT_LOADER_TXT): $(OUT_DIR)/$(OUT_BIN) $(OUT_DIR)/$(OUT_MAP) $(GECKO_FILE_LOADER) | $(OUT_DIR)
-	$(BIN2GCT) hook:$(OUT_DIR)/$(OUT_MAP):$(OUT_DIR)/$(OUT_BIN):onReadOptionBlock C0:$(GECKO_FILE_LOADER) > $@
-$(GECKO_FILES):
+	$(BIN2GCT) hook:$(OUT_DIR)/$(OUT_MAP):$(OUT_DIR)/$(OUT_BIN):onReadOptionBlock:willDrawFader C0:$(GECKO_FILE_LOADER) > $@
+$(GECKO_FILES): $(LD_FILES)
 	$(MAKE) -C$(GECKO_DIR) OUT_DIR=$(GECKO_OUT_DIR) $(patsubst $(GECKO_DIR)/%,%,$@)
 
 $(OUT_DIR):
